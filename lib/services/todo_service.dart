@@ -8,18 +8,19 @@ class TodoService with ChangeNotifier {
 
   List<Todo> get todos => _todos;
 
-  void addTodo(String title) {
+  void addTodo(String title, {DateTime? dueDate}) {
     if (title.isNotEmpty) {
-      _todos.add(Todo(id: _uuid.v4(), title: title));
+      _todos.add(Todo(id: _uuid.v4(), title: title, dueDate: dueDate));
       notifyListeners();
     }
   }
 
-  void editTodo(String id, String newTitle) {
+  void editTodo(String id, String newTitle, {DateTime? newDueDate}) {
     if (newTitle.isNotEmpty) {
       final index = _todos.indexWhere((todo) => todo.id == id);
       if (index != -1) {
         _todos[index].title = newTitle;
+        _todos[index].dueDate = newDueDate;
         notifyListeners();
       }
     }
